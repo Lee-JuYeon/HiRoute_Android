@@ -34,8 +34,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.hiroute.hiroute.PlaceModel
-import com.hiroute.hiroute.RouteModel
+import com.hiroute.hiroute.ui.screen.main.home.placelist.PlaceModel
+import com.hiroute.hiroute.ui.screen.main.home.routelist.RouteModel
 
 @Composable
 fun HomeView(modifier: Modifier = Modifier) {
