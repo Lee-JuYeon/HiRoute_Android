@@ -20,7 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FeedHeaderView() {
+fun FeedHeaderView(
+    onAddPost : () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,7 +70,7 @@ fun FeedHeaderView() {
 
             // 글추가 버튼
             Button(
-                onClick = { /* 글추가 */ },
+                onClick = { onAddPost() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 ),

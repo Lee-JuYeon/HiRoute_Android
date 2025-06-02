@@ -11,13 +11,18 @@ import com.hiroute.hiroute.ui.screen.main.feed.feedlist.FeedList
 
 
 @Composable
-fun FeedView(list : List<FeedModel>) {
+fun FeedView(
+    list : List<FeedModel>,
+    onCreateFeed: () -> Unit = {}
+) {
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         // 상단 헤더 (고정)
-        FeedHeaderView()
+        FeedHeaderView(
+            onAddPost = {  onCreateFeed() }
+        )
 
         FeedList(list)
     }

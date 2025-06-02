@@ -1,17 +1,26 @@
 package com.hiroute.hiroute.ui.screen.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hiroute.hiroute.ui.custom.bottomnavi.BottomNavigationBar
 import com.hiroute.hiroute.ui.custom.bottomnavi.BottomNavigationBarModel
-import com.hiroute.hiroute.ui.screen.Screen
+import com.hiroute.hiroute.ui.custom.navi.destination.MainTabDestination
 import com.hiroute.hiroute.ui.screen.main.feed.FeedModel
 import com.hiroute.hiroute.ui.screen.main.feed.FeedView
 import com.hiroute.hiroute.ui.screen.main.home.HomeView
@@ -19,8 +28,12 @@ import com.hiroute.hiroute.ui.screen.main.mypage.MyPageView
 import com.hiroute.hiroute.ui.screen.main.schedule.ScheduleView
 
 @Composable
-fun MainScreen() {
-    val navController = rememberNavController()
+fun MainScreen(
+    onNavigateToFeedCreate: () -> Unit,
+    onNavigateToFeedDetail: () -> Unit,
+    navController : NavHostController
+) {
+
     val items = listOf(
         BottomNavigationBarModel.Home,
         BottomNavigationBarModel.Feed,
@@ -38,7 +51,6 @@ fun MainScreen() {
         FeedModel(6, "인천 차이나타운", "🥟", 21, 6)
     )
 
-
     Scaffold(
         bottomBar = {
             BottomNavigationBar(navController = navController, items = items)
@@ -51,23 +63,23 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Screen.Home.route
+                startDestination = MainTabDestination.Home.route
             ) {
-                composable(Screen.Home.route) {
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        HomeView()
-                    }
+                composable(MainTabDestination.Home.route) {
+                    HomeView()
                 }
-                composable(Screen.Feed.route) {
+                composable(MainTabDestination.Feed.route) {
                     FeedView(
-                        list = feedModels
+                        list = feedModels,
+                        onCreateFeed = {
+                            onNavigateToFeedCreate()
+                        }
                     )
                 }
-                composable(Screen.Schedule.route) { ScheduleView() }
-                composable(Screen.MyPage.route) { MyPageView() }
+                composable(MainTabDestination.Schedule.route) { ScheduleView() }
+                composable(MainTabDestination.MyPage.route) { MyPageView() }
             }
         }
     }
 }
+
