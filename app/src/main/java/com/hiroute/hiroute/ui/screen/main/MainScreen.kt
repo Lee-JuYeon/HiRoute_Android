@@ -30,9 +30,11 @@ import com.hiroute.hiroute.ui.screen.main.schedule.ScheduleView
 @Composable
 fun MainScreen(
     onNavigateToFeedCreate: () -> Unit,
-    onNavigateToFeedDetail: () -> Unit,
-    navController : NavHostController
+    onNavigateToFeedDetail: () -> Unit
 ) {
+
+    // MainScreen 내부에서 자체적으로 NavController 생성
+    val bottomNavController = rememberNavController()
 
     val items = listOf(
         BottomNavigationBarModel.Home,
@@ -53,7 +55,7 @@ fun MainScreen(
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController = navController, items = items)
+            BottomNavigationBar(navController = bottomNavController, items = items)
         }
     ) { innerPadding ->
         Box(
@@ -62,7 +64,7 @@ fun MainScreen(
                 .padding(innerPadding)
         ) {
             NavHost(
-                navController = navController,
+                navController = bottomNavController,
                 startDestination = MainTabDestination.Home.route
             ) {
                 composable(MainTabDestination.Home.route) {

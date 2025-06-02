@@ -85,8 +85,7 @@ fun AppNavigation(){
                 },
                 onNavigateToFeedDetail = {
                     navController.navigate(AppDestination.FeedDetail.route)
-                },
-                navController = navController
+                }
             )
         }
 

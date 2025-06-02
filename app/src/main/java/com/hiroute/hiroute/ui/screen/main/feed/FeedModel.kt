@@ -4,7 +4,8 @@ data class FeedModel(
     val id: Int,
     val title: String,
     val image: String = "🏙️",
-    val likes: Int,
+
     val comments: Int,
+    val likes: Int,
     val isBookmarked: Boolean = false
 )
